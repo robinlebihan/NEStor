@@ -5,6 +5,10 @@ VisualStudioVersion = 17.5.33103.201
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NEStor", "NEStor\NEStor.vcxproj", "{D832C236-0EC4-4E5E-9D8B-0CD06F36232E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibNEStor", "LibNEStor\LibNEStor.vcxproj", "{5F444AAC-B614-453F-86B9-E57577FDE7ED}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibNEStorTests", "LibNEStorTests\LibNEStorTests.vcxproj", "{D98F9483-0408-4D3A-AB91-E092B3B60EFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +25,22 @@ Global
 		{D832C236-0EC4-4E5E-9D8B-0CD06F36232E}.Release|x64.Build.0 = Release|x64
 		{D832C236-0EC4-4E5E-9D8B-0CD06F36232E}.Release|x86.ActiveCfg = Release|Win32
 		{D832C236-0EC4-4E5E-9D8B-0CD06F36232E}.Release|x86.Build.0 = Release|Win32
+		{5F444AAC-B614-453F-86B9-E57577FDE7ED}.Debug|x64.ActiveCfg = Debug|x64
+		{5F444AAC-B614-453F-86B9-E57577FDE7ED}.Debug|x64.Build.0 = Debug|x64
+		{5F444AAC-B614-453F-86B9-E57577FDE7ED}.Debug|x86.ActiveCfg = Debug|Win32
+		{5F444AAC-B614-453F-86B9-E57577FDE7ED}.Debug|x86.Build.0 = Debug|Win32
+		{5F444AAC-B614-453F-86B9-E57577FDE7ED}.Release|x64.ActiveCfg = Release|x64
+		{5F444AAC-B614-453F-86B9-E57577FDE7ED}.Release|x64.Build.0 = Release|x64
+		{5F444AAC-B614-453F-86B9-E57577FDE7ED}.Release|x86.ActiveCfg = Release|Win32
+		{5F444AAC-B614-453F-86B9-E57577FDE7ED}.Release|x86.Build.0 = Release|Win32
+		{D98F9483-0408-4D3A-AB91-E092B3B60EFB}.Debug|x64.ActiveCfg = Debug|x64
+		{D98F9483-0408-4D3A-AB91-E092B3B60EFB}.Debug|x64.Build.0 = Debug|x64
+		{D98F9483-0408-4D3A-AB91-E092B3B60EFB}.Debug|x86.ActiveCfg = Debug|Win32
+		{D98F9483-0408-4D3A-AB91-E092B3B60EFB}.Debug|x86.Build.0 = Debug|Win32
+		{D98F9483-0408-4D3A-AB91-E092B3B60EFB}.Release|x64.ActiveCfg = Release|x64
+		{D98F9483-0408-4D3A-AB91-E092B3B60EFB}.Release|x64.Build.0 = Release|x64
+		{D98F9483-0408-4D3A-AB91-E092B3B60EFB}.Release|x86.ActiveCfg = Release|Win32
+		{D98F9483-0408-4D3A-AB91-E092B3B60EFB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
