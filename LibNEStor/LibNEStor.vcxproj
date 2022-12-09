@@ -132,6 +132,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Assembly\Public\Assembly-AddressModes.ixx" />
+    <ClCompile Include="Assembly\Public\Assembly-Decode.ixx" />
+    <ClCompile Include="Assembly\Public\Assembly-Instructions.ixx" />
+    <ClCompile Include="Assembly\Public\Assembly.ixx" />
     <ClCompile Include="Common.ixx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

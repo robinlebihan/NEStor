@@ -2,5 +2,25 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Common.ixx" />
+    <ClCompile Include="Assembly\Public\Assembly.ixx">
+      <Filter>Assembly\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="Assembly\Public\Assembly-AddressModes.ixx">
+      <Filter>Assembly\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="Assembly\Public\Assembly-Instructions.ixx">
+      <Filter>Assembly\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="Assembly\Public\Assembly-Decode.ixx">
+      <Filter>Assembly\Public</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Assembly">
+      <UniqueIdentifier>{cc341e9e-9481-414c-8b86-0158df1a9d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assembly\Public">
+      <UniqueIdentifier>{3eb52b3c-7576-4fab-ba22-7e2eb2aa4de5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
