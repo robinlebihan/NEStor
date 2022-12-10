@@ -41,6 +41,8 @@ namespace nes::assembly::concepts
         requires std::regular<T>;
         { instruction_variant.IsValid() } -> std::same_as<bool>;
         std::visit([](const auto&) {}, instruction_variant);
+
+        typename T::UnknownInstruction;
     };
     // clang-format on
 
