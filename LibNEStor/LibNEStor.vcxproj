@@ -132,9 +132,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Assembly\Private\Assembly-AddressModesPrivate.ixx" />
+    <ClCompile Include="Assembly\Private\Assembly-Decode.ixx" />
+    <ClCompile Include="Assembly\Private\Assembly-InstructionsPrivate.ixx" />
     <ClCompile Include="Assembly\Public\Assembly-AddressModes.ixx" />
-    <ClCompile Include="Assembly\Public\Assembly-Decode.ixx" />
+    <ClCompile Include="Assembly\Public\Assembly-Concepts.ixx" />
+    <ClCompile Include="Assembly\Public\Assembly-InstructionMetadata.ixx" />
     <ClCompile Include="Assembly\Public\Assembly-Instructions.ixx" />
+    <ClCompile Include="Assembly\Public\Assembly-Mnemonics.ixx" />
     <ClCompile Include="Assembly\Public\Assembly.ixx" />
     <ClCompile Include="Common.ixx" />
   </ItemGroup>
