@@ -1,20 +1,39 @@
 export module NEStor.Assembly:Decode;
 
+import :Concepts;
 import :AddressModes;
 import :Instructions;
 
 import NEStor.Common;
 
+import <algorithm>;
 import <optional>;
+import <array>;
 
 namespace nes::assembly
 {
+    namespace
+    {
+        template <concepts::Instruction... T>
+        [[nodiscard]] consteval auto AreInstructionOpcodesUnique()
+        {
+            std::array<Byte, sizeof...(T)> opcodes{T::Metadata.opcode...};
+            std::ranges::sort(opcodes);
+
+            const auto ret = std::ranges::unique(opcodes);
+            return std::ranges::size(ret) == 0u;
+        }
+
+    } // namespace
+
     template <typename T>
     struct InstructionMatcher;
 
     export template <typename... T>
     struct InstructionMatcher<GenericInstructionVariant<GenericInstructionSet<T...>>>
     {
+        static_assert(AreInstructionOpcodesUnique<T...>(), "Some instructions have identical opcodes");
+
         using InstructionType = GenericInstructionVariant<GenericInstructionSet<T...>>;
 
         template <typename Instr>
