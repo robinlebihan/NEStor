@@ -3,10 +3,12 @@ export module NEStor.Assembly:Instructions;
 import :InstructionsPrivate;
 import :AddressModes;
 import :Mnemonics;
+import :Concepts;
 
 import NEStor.Common;
 
 import <concepts>;
+import <string>;
 
 namespace nes::assembly
 {
@@ -163,3 +165,25 @@ namespace nes::assembly
     export using InstructionVariant = GenericInstructionVariant<InstructionSet>;
 
 } // namespace nes::assembly
+
+namespace std
+{
+    export template <nes::assembly::concepts::Instruction Instr>
+    auto to_string(const Instr& instruction) -> string
+    {
+        return std::format("{} {}", Instr::Metadata.mnemonic, to_string(instruction.GetAddressMode()));
+    }
+
+    export template <nes::assembly::concepts::Instruction Instr, typename CharT>
+    struct formatter<Instr, CharT> : formatter<string, CharT>
+    {
+        template <typename FormatContext>
+        auto format(const Instr& instr, FormatContext& ctx) const
+        {
+            return formatter<string, CharT>::format(to_string(instr), ctx);
+        }
+    };
+
+
+
+} // namespace std

@@ -29,6 +29,33 @@
     <ClCompile Include="Assembly\Public\Assembly-InstructionMetadata.ixx">
       <Filter>Assembly\Public</Filter>
     </ClCompile>
+    <ClCompile Include="CPU\Public\CPU.ixx">
+      <Filter>CPU\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="CPU\Public\CPU-State.ixx">
+      <Filter>CPU\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="CPU\Public\CPU-StatusFlags.ixx">
+      <Filter>CPU\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="CPU\Private\CPU-Impl.ixx">
+      <Filter>CPU\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Bus\Bus.ixx">
+      <Filter>Bus\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="CPU\Public\CPU-Execution.ixx">
+      <Filter>CPU\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="CPU\Private\CPU-ExecutionVisitor.ixx">
+      <Filter>CPU\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="CPU\Private\CPU-EffectiveAddress.ixx">
+      <Filter>CPU\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="CPU\Private\CPU-Branching.ixx">
+      <Filter>CPU\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assembly">
@@ -39,6 +66,21 @@
     </Filter>
     <Filter Include="Assembly\Private">
       <UniqueIdentifier>{84d8d77f-322f-4c34-adc3-b32a42e46c07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CPU">
+      <UniqueIdentifier>{dae43e49-27bb-4a1c-8ced-0cc907d5e342}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CPU\Public">
+      <UniqueIdentifier>{78855b22-4326-483f-b76f-76f795cb55ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CPU\Private">
+      <UniqueIdentifier>{9c56a355-7e94-495d-874b-4b6d84f879cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bus">
+      <UniqueIdentifier>{e3a596ec-3a51-43dc-a9bb-a0d6392a39da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bus\Public">
+      <UniqueIdentifier>{6523661c-58d6-4cc8-8a18-92ae7c8a7d73}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

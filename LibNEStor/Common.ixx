@@ -11,6 +11,7 @@ namespace std
 {
     export using std::uint8_t;
     export using std::uint16_t;
+    export using std::uint64_t;
     export using std::size_t;
 
 } // namespace std

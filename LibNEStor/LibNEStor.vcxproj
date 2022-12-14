@@ -141,7 +141,16 @@
     <ClCompile Include="Assembly\Public\Assembly-Instructions.ixx" />
     <ClCompile Include="Assembly\Public\Assembly-Mnemonics.ixx" />
     <ClCompile Include="Assembly\Public\Assembly.ixx" />
+    <ClCompile Include="Bus\Bus.ixx" />
     <ClCompile Include="Common.ixx" />
+    <ClCompile Include="CPU\Private\CPU-Branching.ixx" />
+    <ClCompile Include="CPU\Private\CPU-EffectiveAddress.ixx" />
+    <ClCompile Include="CPU\Private\CPU-ExecutionVisitor.ixx" />
+    <ClCompile Include="CPU\Private\CPU-Impl.ixx" />
+    <ClCompile Include="CPU\Public\CPU-Execution.ixx" />
+    <ClCompile Include="CPU\Public\CPU-State.ixx" />
+    <ClCompile Include="CPU\Public\CPU-StatusFlags.ixx" />
+    <ClCompile Include="CPU\Public\CPU.ixx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

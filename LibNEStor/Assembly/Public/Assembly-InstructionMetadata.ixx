@@ -10,7 +10,7 @@ namespace nes::assembly
     {
         InstructionMnemonic mnemonic;
         Byte                opcode;
-        Word                cycles;
+        Byte                cycles;
     };
 
 } // namespace nes::assembly
