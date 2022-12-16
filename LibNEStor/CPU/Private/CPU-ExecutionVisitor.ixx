@@ -154,6 +154,19 @@ namespace nes::cpu
             return Instr::Metadata.cycles + PageBoundaryCrossingOverhead(crossed_page_boundary);
         }
 
+        template <assembly::concepts::InstructionWithMnemonic<assembly::InstructionMnemonic::BIT> Instr>
+        auto operator()(const Instr& instr) -> Byte
+        {
+            const auto [data, _] = FetchByte(instr.GetAddressMode());
+
+            const auto result = m_cpu_state.accumulator & data;
+            m_cpu_state.status.SetFlag(StatusFlag::Overflow, (data & 0b0100'0000) > 0u);
+            m_cpu_state.status.SetFlag(StatusFlag::Negative, (data & 0b1000'0000) > 0u);
+            m_cpu_state.status.SetFlag(StatusFlag::Zero, result != 0u);
+
+            return Instr::Metadata.cycles;
+        }
+
         template <concepts::BranchingInstruction Instr>
         auto operator()(const Instr& instr) -> Byte
         {
