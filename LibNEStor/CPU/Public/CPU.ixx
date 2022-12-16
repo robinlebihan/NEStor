@@ -15,7 +15,7 @@ namespace nes::cpu
         // clang-format off
         export template <typename T, typename Bus>
         concept CPU = requires(const T cpu, T mut_cpu, Bus bus) {
-            requires bus::concepts::Bus<Bus>;
+            requires bus::concepts::ExtendedBus<Bus>;
 
             { mut_cpu.Update(bus) } -> std::same_as<void>;
             { cpu.GetState() } -> std::same_as<CPUState>;
@@ -24,7 +24,7 @@ namespace nes::cpu
 
     } // namespace concepts
 
-    export template <bus::concepts::Bus Bus>
+    export template <bus::concepts::ExtendedBus Bus>
     [[nodiscard]] constexpr auto MakeCPU() -> concepts::CPU<Bus> auto
     {
         return CPU<Bus>{};

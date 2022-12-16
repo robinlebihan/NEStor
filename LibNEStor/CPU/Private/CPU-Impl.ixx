@@ -9,7 +9,7 @@ import NEStor.Assembly;
 
 namespace nes::cpu
 {
-    export template <bus::concepts::Bus Bus>
+    export template <bus::concepts::ExtendedBus Bus>
     class CPU
     {
     public:
@@ -17,10 +17,8 @@ namespace nes::cpu
         {
             if (m_state.instruction_remaining_cycles == 0u)
             {
-                auto bus_adapter = bus::BusAdapter{bus};
-
-                const Byte opcode  = bus_adapter.ReadByte(m_state.program_counter);
-                const Word operand = bus_adapter.ReadWord(m_state.program_counter + 1);
+                const Byte opcode  = bus.ReadByte(m_state.program_counter);
+                const Word operand = bus.ReadWord(m_state.program_counter + 1);
 
                 const auto instruction = assembly::Decode(opcode, operand);
                 m_state.program_counter += static_cast<Address>(instruction.GetSize());

@@ -74,6 +74,14 @@ namespace nes::assembly
     export using CmpIndirectX = GenericInstruction<{.mnemonic = InstructionMnemonic::CMP, .opcode = 0xC1, .cycles = 6}, IndirectX>;
     export using CmpIndirectY = GenericInstruction<{.mnemonic = InstructionMnemonic::CMP, .opcode = 0xD1, .cycles = 5}, IndirectY>;
 
+    export using CpxImmediate = GenericInstruction<{.mnemonic = InstructionMnemonic::CPX, .opcode = 0xE0, .cycles = 2}, Immediate>;
+    export using CpxZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::CPX, .opcode = 0xE4, .cycles = 3}, Zeropage>;
+    export using CpxAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::CPX, .opcode = 0xEC, .cycles = 4}, Absolute>;
+
+    export using CpyImmediate = GenericInstruction<{.mnemonic = InstructionMnemonic::CPY, .opcode = 0xC0, .cycles = 2}, Immediate>;
+    export using CpyZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::CPY, .opcode = 0xC4, .cycles = 3}, Zeropage>;
+    export using CpyAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::CPY, .opcode = 0xCC, .cycles = 4}, Absolute>;
+
     export using JmpAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::JMP, .opcode = 0x4C, .cycles = 3}, Absolute>;
     export using JmpIndirect = GenericInstruction<{.mnemonic = InstructionMnemonic::JMP, .opcode = 0x6C, .cycles = 5}, Indirect>;
 
@@ -158,6 +166,16 @@ namespace nes::assembly
         CmpIndirectX,
         CmpIndirectY,
 
+        // CPX
+        CpxImmediate,
+        CpxZeropage,
+        CpxAbsolute,
+
+        // CPY
+        CpyImmediate,
+        CpyZeropage,
+        CpyAbsolute,
+
         JmpAbsolute,
         JmpIndirect
     >;
@@ -183,7 +201,5 @@ namespace std
             return formatter<string, CharT>::format(to_string(instr), ctx);
         }
     };
-
-
 
 } // namespace std

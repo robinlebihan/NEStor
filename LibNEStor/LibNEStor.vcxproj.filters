@@ -41,9 +41,6 @@
     <ClCompile Include="CPU\Private\CPU-Impl.ixx">
       <Filter>CPU\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Bus\Bus.ixx">
-      <Filter>Bus\Public</Filter>
-    </ClCompile>
     <ClCompile Include="CPU\Public\CPU-Execution.ixx">
       <Filter>CPU\Public</Filter>
     </ClCompile>
@@ -55,6 +52,21 @@
     </ClCompile>
     <ClCompile Include="CPU\Private\CPU-Branching.ixx">
       <Filter>CPU\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="RAM\Public\RAM.ixx">
+      <Filter>RAM\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="Bus\Public\Bus-MainBus.ixx">
+      <Filter>Bus\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="Bus\Public\Bus.ixx">
+      <Filter>Bus\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="Bus\Private\Bus-MainBusImpl.ixx">
+      <Filter>Bus\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Bus\Public\Bus-ExtendedBus.ixx">
+      <Filter>Bus\Public</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +93,15 @@
     </Filter>
     <Filter Include="Bus\Public">
       <UniqueIdentifier>{6523661c-58d6-4cc8-8a18-92ae7c8a7d73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RAM">
+      <UniqueIdentifier>{11770bbb-abfd-4f3b-ac3c-54f00d8a798f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RAM\Public">
+      <UniqueIdentifier>{4b878cb8-7d4e-47fc-a4fd-8a520e491a27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bus\Private">
+      <UniqueIdentifier>{490a1240-2e0a-4639-8d29-fe8cfcec1324}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

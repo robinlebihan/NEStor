@@ -4,13 +4,14 @@
 import NEStor.Common;
 import NEStor.CPU;
 import NEStor.Assembly;
+import NEStor.Bus;
 
 namespace nes::cpu::tests
 {
     using ::testing::StrictMock;
     using ::testing::Return;
 
-    class BusMock
+    class BusMock : public bus::ExtendedBus<BusMock>
     {
     public:
         MOCK_METHOD(void, WriteByte, (Address, Byte), ());
@@ -27,8 +28,7 @@ namespace nes::cpu::tests
         const auto cycles = Execute(assembly::JmpAbsolute{0x1234u}, state, bus);
 
         // THEN
-        constexpr CPUState expected{.program_counter = 0x1234};
-        EXPECT_EQ(state, expected);
+        EXPECT_EQ(state.program_counter, 0x1234u);
         EXPECT_EQ(cycles, 3);
     }
 
@@ -45,8 +45,7 @@ namespace nes::cpu::tests
         const auto cycles = Execute(assembly::JmpIndirect{0x1234u}, state, bus);
 
         // THEN
-        constexpr CPUState expected{.program_counter = 0x7698};
-        EXPECT_EQ(state, expected);
+        EXPECT_EQ(state.program_counter, 0x7698u);
         EXPECT_EQ(cycles, 5);
     }
 
