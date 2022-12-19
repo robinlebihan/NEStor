@@ -12,7 +12,9 @@ import <concepts>;
 
 namespace nes::cpu
 {
-    constexpr auto PageBoundaryCrossingOverhead(bool crossed_page_boundary)
+    constexpr Address StackAddress = 0x100;
+
+    constexpr auto PageBoundaryCrossingOverhead(bool crossed_page_boundary) -> Byte
     {
         return crossed_page_boundary ? 1u : 0u;
     }
@@ -48,7 +50,7 @@ namespace nes::cpu
             bool crossed_page_boundary;
         };
 
-        auto FetchByte(const assembly::Accumulator& address_mode) -> FetchedByte
+        auto FetchByte(const assembly::Accumulator& /*address_mode*/) -> FetchedByte
         {
             return {.data = m_cpu_state.accumulator, .crossed_page_boundary = false};
         }
@@ -74,7 +76,7 @@ namespace nes::cpu
             return {m_bus.ReadByte(address), page_boundary_crossing};
         }
 
-        auto WriteByte(const assembly::Accumulator& address_mode, Byte data) -> bool
+        auto WriteByte(const assembly::Accumulator& /*address_mode*/, Byte data) -> bool
         {
             m_cpu_state.accumulator = data;
             return false;
@@ -95,6 +97,18 @@ namespace nes::cpu
             const auto [address, page_boundary_crossing] = ComputeEffectiveAddress(address_mode, m_bus, m_cpu_state);
             m_bus.WriteByte(address, data);
             return page_boundary_crossing;
+        }
+
+        void StackPush(Byte data)
+        {
+            m_bus.WriteByte(StackAddress + static_cast<Address>(m_cpu_state.stack_pointer), data);
+            m_cpu_state.stack_pointer = WrappingSub(m_cpu_state.stack_pointer, 1);
+        }
+
+        [[nodiscard]] auto StackPull() -> Byte
+        {
+            m_cpu_state.stack_pointer = WrappingAdd(m_cpu_state.stack_pointer, 1);
+            return m_bus.ReadByte(StackAddress + static_cast<Address>(m_cpu_state.stack_pointer));
         }
 
         auto ExecuteBranch(const assembly::Relative& address_mode, bool condition) -> Byte
@@ -146,7 +160,7 @@ namespace nes::cpu
         {
             const auto [data, crossed_page_boundary] = FetchByte(instr.GetAddressMode());
 
-            const auto result = data << 1u;
+            const Byte result = data << 1u;
             UpdateFlags(m_cpu_state, result);
             m_cpu_state.status.SetFlag(StatusFlag::Carry, (data & 0b1000'0000) > 0u);
 
@@ -175,31 +189,47 @@ namespace nes::cpu
             return assembly::BccRelative::Metadata.cycles + branching_overhead;
         }
 
-        auto operator()(const assembly::ClcImplied& instr) -> Byte
+        auto operator()(const assembly::ClcImplied& /*instr*/) -> Byte
         {
             m_cpu_state.status.SetFlag(StatusFlag::Carry, false);
             return assembly::ClcImplied::Metadata.cycles;
         }
 
-        auto operator()(const assembly::CldImplied& instr) -> Byte
+        auto operator()(const assembly::CldImplied& /*instr*/) -> Byte
         {
             m_cpu_state.status.SetFlag(StatusFlag::Decimal, false);
             return assembly::CldImplied::Metadata.cycles;
         }
 
-        auto operator()(const assembly::CliImplied& instr) -> Byte
+        auto operator()(const assembly::CliImplied& /*instr*/) -> Byte
         {
             m_cpu_state.status.SetFlag(StatusFlag::InterruptDisable, false);
             return assembly::CliImplied::Metadata.cycles;
         }
 
-        auto operator()(const assembly::ClvImplied& instr) -> Byte
+        auto operator()(const assembly::ClvImplied& /*instr*/) -> Byte
         {
             m_cpu_state.status.SetFlag(StatusFlag::Overflow, false);
             return assembly::ClvImplied::Metadata.cycles;
         }
 
-        auto operator()(const auto& instr) -> Byte
+        auto operator()(const assembly::DexImplied& /*instr*/) -> Byte
+        {
+            m_cpu_state.x = WrappingSub(m_cpu_state.x, 1);
+            UpdateFlags(m_cpu_state, m_cpu_state.x);
+
+            return assembly::DexImplied::Metadata.cycles;
+        }
+
+        auto operator()(const assembly::DeyImplied& /*instr*/) -> Byte
+        {
+            m_cpu_state.y = WrappingSub(m_cpu_state.y, 1);
+            UpdateFlags(m_cpu_state, m_cpu_state.y);
+
+            return assembly::DeyImplied::Metadata.cycles;
+        }
+
+        auto operator()(const auto& /*instr*/) -> Byte
         {
             return 0u;
         }

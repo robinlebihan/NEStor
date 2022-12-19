@@ -31,7 +31,7 @@ namespace nes::cpu
             return m_flags.test(std::to_underlying(flag));
         }
 
-        void ToggleFlag(StatusFlag flag) noexcept
+        constexpr void ToggleFlag(StatusFlag flag) noexcept
         {
             m_flags.flip(std::to_underlying(flag));
         }

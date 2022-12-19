@@ -82,6 +82,9 @@ namespace nes::assembly
     export using CpyZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::CPY, .opcode = 0xC4, .cycles = 3}, Zeropage>;
     export using CpyAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::CPY, .opcode = 0xCC, .cycles = 4}, Absolute>;
 
+    export using DexImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::DEX, .opcode = 0xCA, .cycles = 2}, Implied>;
+    export using DeyImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::DEY, .opcode = 0x88, .cycles = 2}, Implied>;
+
     export using JmpAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::JMP, .opcode = 0x4C, .cycles = 3}, Absolute>;
     export using JmpIndirect = GenericInstruction<{.mnemonic = InstructionMnemonic::JMP, .opcode = 0x6C, .cycles = 5}, Indirect>;
 
@@ -175,6 +178,9 @@ namespace nes::assembly
         CpyImmediate,
         CpyZeropage,
         CpyAbsolute,
+
+        // DEX
+        DexImplied,
 
         JmpAbsolute,
         JmpIndirect

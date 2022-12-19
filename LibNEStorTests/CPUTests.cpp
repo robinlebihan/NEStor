@@ -38,8 +38,8 @@ namespace nes::cpu::tests
         StrictMock<BusMock> bus;
         CPUState            state{};
 
-        EXPECT_CALL(bus, ReadByte(Address{0x1234u})).WillRepeatedly(Return(0x98u));
-        EXPECT_CALL(bus, ReadByte(Address{0x1235u})).WillRepeatedly(Return(0x76u));
+        EXPECT_CALL(bus, ReadByte(Address{0x1234u})).WillRepeatedly(Return(Byte{0x98u}));
+        EXPECT_CALL(bus, ReadByte(Address{0x1235u})).WillRepeatedly(Return(Byte{0x76u}));
 
         // WHEN
         const auto cycles = Execute(assembly::JmpIndirect{0x1234u}, state, bus);

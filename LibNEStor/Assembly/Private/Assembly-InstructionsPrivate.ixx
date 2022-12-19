@@ -54,7 +54,7 @@ namespace nes::assembly
 
         [[nodiscard]] constexpr auto GetSize() const noexcept
         {
-            const auto get_operand_size = []<typename Instr>(const Instr & instr) -> std::size_t {
+            const auto get_operand_size = []<typename Instr>([[maybe_unused]] const Instr & instr) -> std::size_t {
                 if constexpr (std::same_as<UnknownInstruction, Instr>)
                 {
                     return 0u;

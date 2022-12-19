@@ -189,11 +189,8 @@ namespace std
         case TYA:
             return "TYA";
         default:
-            break;
+            return "XXX";
         }
-
-        std::unreachable();
-        return "XXX";
     }
 
     export template <typename CharT>
