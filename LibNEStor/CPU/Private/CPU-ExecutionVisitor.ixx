@@ -3,6 +3,9 @@ export module NEStor.CPU:ExecutionVisitor;
 import :State;
 import :Branching;
 import :EffectiveAddress;
+import :Transfer;
+import :FlagInstruction;
+import :Load;
 
 import NEStor.Common;
 import NEStor.Assembly;
@@ -124,6 +127,11 @@ namespace nes::cpu
             return 0u;
         }
 
+        auto operator()(const assembly::NopImplied& /*instr*/) -> Byte
+        {
+            return assembly::NopImplied::Metadata.cycles;
+        }
+
         template <assembly::concepts::InstructionWithMnemonic<assembly::InstructionMnemonic::JMP> Instr>
         auto operator()(const Instr& instr) -> Byte
         {
@@ -186,31 +194,39 @@ namespace nes::cpu
         {
             const auto branching_overhead =
                 ExecuteBranch(instr.GetAddressMode(), BranchingInstructionTrait<Instr>::ShouldBranch(m_cpu_state));
-            return assembly::BccRelative::Metadata.cycles + branching_overhead;
+            return Instr::Metadata.cycles + branching_overhead;
         }
 
-        auto operator()(const assembly::ClcImplied& /*instr*/) -> Byte
+        template <concepts::TransferInstruction Instr>
+        auto operator()(const Instr& /*instr*/) -> Byte
         {
-            m_cpu_state.status.SetFlag(StatusFlag::Carry, false);
-            return assembly::ClcImplied::Metadata.cycles;
+            const auto from = m_cpu_state.*(TransferInstructionTrait<Instr>::From);
+            auto&      to   = m_cpu_state.*(TransferInstructionTrait<Instr>::To);
+
+            to = from;
+
+            UpdateFlags(m_cpu_state, to);
+            return Instr::Metadata.cycles;
         }
 
-        auto operator()(const assembly::CldImplied& /*instr*/) -> Byte
+        template <concepts::FlagInstruction Instr>
+        auto operator()(const Instr& /*instr*/) -> Byte
         {
-            m_cpu_state.status.SetFlag(StatusFlag::Decimal, false);
-            return assembly::CldImplied::Metadata.cycles;
+            constexpr auto new_flag_value = FlagInstructionTrait<Instr>::Action == FlagAction::Set;
+            m_cpu_state.status.SetFlag(FlagInstructionTrait<Instr>::Flag, new_flag_value);
+            return Instr::Metadata.cycles;
         }
 
-        auto operator()(const assembly::CliImplied& /*instr*/) -> Byte
+        template <concepts::LoadInstruction Instr>
+        auto operator()(const Instr& instr) -> Byte
         {
-            m_cpu_state.status.SetFlag(StatusFlag::InterruptDisable, false);
-            return assembly::CliImplied::Metadata.cycles;
-        }
+            const auto [data, crossed_page_boundary] = FetchByte(instr.GetAddressMode());
 
-        auto operator()(const assembly::ClvImplied& /*instr*/) -> Byte
-        {
-            m_cpu_state.status.SetFlag(StatusFlag::Overflow, false);
-            return assembly::ClvImplied::Metadata.cycles;
+            auto& target = m_cpu_state.*(LoadInstructionTrait<Instr>::Target);
+            target       = data;
+
+            UpdateFlags(m_cpu_state, target);
+            return Instr::Metadata.cycles + PageBoundaryCrossingOverhead(crossed_page_boundary);
         }
 
         auto operator()(const assembly::DexImplied& /*instr*/) -> Byte
@@ -227,6 +243,31 @@ namespace nes::cpu
             UpdateFlags(m_cpu_state, m_cpu_state.y);
 
             return assembly::DeyImplied::Metadata.cycles;
+        }
+
+        auto operator()(const assembly::PhaImplied& /*instr*/) -> Byte
+        {
+            StackPush(m_cpu_state.accumulator);
+            return assembly::PhaImplied::Metadata.cycles;
+        }
+
+        auto operator()(const assembly::PhpImplied& /*instr*/) -> Byte
+        {
+            StackPush(m_cpu_state.status.GetValue());
+            return assembly::PhpImplied::Metadata.cycles;
+        }
+
+        auto operator()(const assembly::PlaImplied& /*instr*/) -> Byte
+        {
+            m_cpu_state.accumulator = StackPull();
+            UpdateFlags(m_cpu_state, m_cpu_state.accumulator);
+            return assembly::PlaImplied::Metadata.cycles;
+        }
+
+        auto operator()(const assembly::PlpImplied& /*instr*/) -> Byte
+        {
+            m_cpu_state.status = StatusRegister{StackPull()};
+            return assembly::PlpImplied::Metadata.cycles;
         }
 
         auto operator()(const auto& /*instr*/) -> Byte

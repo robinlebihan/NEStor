@@ -83,10 +83,48 @@ namespace nes::assembly
     export using CpyAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::CPY, .opcode = 0xCC, .cycles = 4}, Absolute>;
 
     export using DexImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::DEX, .opcode = 0xCA, .cycles = 2}, Implied>;
+
     export using DeyImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::DEY, .opcode = 0x88, .cycles = 2}, Implied>;
 
     export using JmpAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::JMP, .opcode = 0x4C, .cycles = 3}, Absolute>;
     export using JmpIndirect = GenericInstruction<{.mnemonic = InstructionMnemonic::JMP, .opcode = 0x6C, .cycles = 5}, Indirect>;
+
+    export using LdaImmediate = GenericInstruction<{.mnemonic = InstructionMnemonic::LDA, .opcode = 0xA9, .cycles = 2}, Immediate>;
+    export using LdaZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::LDA, .opcode = 0xA5, .cycles = 3}, Zeropage>;
+    export using LdaZeropageX = GenericInstruction<{.mnemonic = InstructionMnemonic::LDA, .opcode = 0xB5, .cycles = 4}, ZeropageX>;
+    export using LdaAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::LDA, .opcode = 0xAD, .cycles = 4}, Absolute>;
+    export using LdaAbsoluteX = GenericInstruction<{.mnemonic = InstructionMnemonic::LDA, .opcode = 0xBD, .cycles = 4}, AbsoluteX>;
+    export using LdaAbsoluteY = GenericInstruction<{.mnemonic = InstructionMnemonic::LDA, .opcode = 0xB9, .cycles = 4}, AbsoluteY>;
+    export using LdaIndirectX = GenericInstruction<{.mnemonic = InstructionMnemonic::LDA, .opcode = 0xA1, .cycles = 6}, IndirectX>;
+    export using LdaIndirectY = GenericInstruction<{.mnemonic = InstructionMnemonic::LDA, .opcode = 0xB1, .cycles = 5}, IndirectY>;
+
+    export using LdxImmediate = GenericInstruction<{.mnemonic = InstructionMnemonic::LDX, .opcode = 0xA2, .cycles = 2}, Immediate>;
+    export using LdxZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::LDX, .opcode = 0xA6, .cycles = 3}, Zeropage>;
+    export using LdxZeropageY = GenericInstruction<{.mnemonic = InstructionMnemonic::LDX, .opcode = 0xB6, .cycles = 4}, ZeropageY>;
+    export using LdxAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::LDX, .opcode = 0xAE, .cycles = 4}, Absolute>;
+    export using LdxAbsoluteY = GenericInstruction<{.mnemonic = InstructionMnemonic::LDX, .opcode = 0xBE, .cycles = 4}, AbsoluteY>;
+
+    export using LdyImmediate = GenericInstruction<{.mnemonic = InstructionMnemonic::LDY, .opcode = 0xA0, .cycles = 2}, Immediate>;
+    export using LdyZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::LDY, .opcode = 0xA4, .cycles = 3}, Zeropage>;
+    export using LdyZeropageX = GenericInstruction<{.mnemonic = InstructionMnemonic::LDY, .opcode = 0xB4, .cycles = 4}, ZeropageX>;
+    export using LdyAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::LDY, .opcode = 0xAC, .cycles = 4}, Absolute>;
+    export using LdyAbsoluteX = GenericInstruction<{.mnemonic = InstructionMnemonic::LDY, .opcode = 0xBC, .cycles = 4}, AbsoluteX>;
+
+    export using NopImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::NOP, .opcode = 0xEA, .cycles = 2}, Implied>;
+
+    export using PhaImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::PHA, .opcode = 0x48, .cycles = 3}, Implied>;
+
+    export using PhpImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::PHP, .opcode = 0x08, .cycles = 3}, Implied>;
+
+    export using PlaImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::PLA, .opcode = 0x68, .cycles = 4}, Implied>;
+
+    export using PlpImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::PLP, .opcode = 0x28, .cycles = 4}, Implied>;
+
+    export using TaxImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::TAX, .opcode = 0xAA, .cycles = 2}, Implied>;
+
+    export using TayImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::TAY, .opcode = 0xA8, .cycles = 2}, Implied>;
+
+    export using TsxImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::TSX, .opcode = 0xBA, .cycles = 2}, Implied>;
 
     export using InstructionSet = GenericInstructionSet<
         // ADC
@@ -182,8 +220,57 @@ namespace nes::assembly
         // DEX
         DexImplied,
 
+        // JMP
         JmpAbsolute,
-        JmpIndirect
+        JmpIndirect,
+
+        // LDA
+        LdaImmediate,
+        LdaZeropage,
+        LdaZeropageX,
+        LdaAbsolute,
+        LdaAbsoluteX,
+        LdaAbsoluteY,
+        LdaIndirectX,
+        LdaIndirectY,
+
+        // LDX
+        LdxImmediate,
+        LdxZeropage,
+        LdxZeropageY,
+        LdxAbsolute,
+        LdxAbsoluteY,
+
+        // LDY
+        LdyImmediate,
+        LdyZeropage,
+        LdyZeropageX,
+        LdyAbsolute,
+        LdyAbsoluteX,
+
+        // NOP
+        NopImplied,
+
+        // PHA
+        PhaImplied,
+
+        // PHP
+        PhpImplied,
+
+        // PLA
+        PlaImplied,
+
+        // PLP
+        PlpImplied,
+
+        // TAX
+        TaxImplied,
+
+        // TAY
+        TayImplied,
+
+        // TSX
+        TsxImplied
     >;
 
     export using InstructionVariant = GenericInstructionVariant<InstructionSet>;

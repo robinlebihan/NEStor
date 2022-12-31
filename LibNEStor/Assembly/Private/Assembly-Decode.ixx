@@ -20,8 +20,8 @@ namespace nes::assembly
             std::array<Byte, sizeof...(T)> opcodes{T::Metadata.opcode...};
             std::ranges::sort(opcodes);
 
-            const auto ret = std::ranges::unique(opcodes);
-            return std::ranges::size(ret) == 0u;
+            const auto duplicates = std::ranges::unique(opcodes);
+            return std::ranges::size(duplicates) == 0u;
         }
 
     } // namespace

@@ -19,7 +19,12 @@ namespace nes::cpu
     export class StatusRegister
     {
     public:
-        [[nodiscard]] constexpr auto GetValue() const noexcept { return m_flags.to_ulong(); }
+        constexpr StatusRegister() noexcept = default;
+        constexpr explicit StatusRegister(Byte value) noexcept
+            : m_flags{value}
+        {}
+
+        [[nodiscard]] constexpr auto GetValue() const noexcept -> Byte { return static_cast<Byte>(m_flags.to_ulong()); }
 
         constexpr void SetFlag(StatusFlag flag, bool value) noexcept
         {

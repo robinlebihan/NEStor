@@ -151,7 +151,10 @@
     <ClCompile Include="CPU\Private\CPU-Branching.ixx" />
     <ClCompile Include="CPU\Private\CPU-EffectiveAddress.ixx" />
     <ClCompile Include="CPU\Private\CPU-ExecutionVisitor.ixx" />
+    <ClCompile Include="CPU\Private\CPU-FlagInstruction.ixx" />
     <ClCompile Include="CPU\Private\CPU-Impl.ixx" />
+    <ClCompile Include="CPU\Private\CPU-Load.ixx" />
+    <ClCompile Include="CPU\Private\CPU-Transfer.ixx" />
     <ClCompile Include="CPU\Public\CPU-Execution.ixx" />
     <ClCompile Include="CPU\Public\CPU-State.ixx" />
     <ClCompile Include="CPU\Public\CPU-StatusFlags.ixx" />

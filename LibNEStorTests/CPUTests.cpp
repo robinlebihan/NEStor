@@ -84,4 +84,50 @@ namespace nes::cpu::tests
         EXPECT_EQ(cycles, assembly::BccRelative::Metadata.cycles + 2);
     }
 
+    TEST(CPU, ExecuteLdaImmediate)
+    {
+        // GIVEN
+        StrictMock<BusMock> bus;
+        CPUState            state{};
+
+        // WHEN
+        const auto cycles = Execute(assembly::LdaImmediate{0xF8}, state, bus);
+
+        // THEN
+        EXPECT_EQ(state.accumulator, 0xF8);
+        EXPECT_FALSE(state.status.GetFlag(StatusFlag::Zero));
+        EXPECT_TRUE(state.status.GetFlag(StatusFlag::Negative));
+        EXPECT_EQ(cycles, assembly::TaxImplied::Metadata.cycles);
+    }
+
+    TEST(CPU, ExecuteTaxImplied)
+    {
+        // GIVEN
+        StrictMock<BusMock> bus;
+        CPUState            state{.accumulator = 0xF3, .x = 0x23};
+
+        // WHEN
+        const auto cycles = Execute(assembly::TaxImplied{}, state, bus);
+
+        // THEN
+        EXPECT_EQ(state.accumulator, 0xF3);
+        EXPECT_EQ(state.x, 0xF3);
+        EXPECT_EQ(cycles, assembly::TaxImplied::Metadata.cycles);
+    }
+
+    TEST(CPU, ExecuteClcImplied)
+    {
+        // GIVEN
+        StrictMock<BusMock> bus;
+        CPUState            state{};
+        state.status.SetFlag(StatusFlag::Carry, true);
+
+        // WHEN
+        const auto cycles = Execute(assembly::ClcImplied{}, state, bus);
+
+        // THEN
+        EXPECT_FALSE(state.status.GetFlag(StatusFlag::Carry));
+        EXPECT_EQ(cycles, assembly::ClcImplied::Metadata.cycles);
+    }
+
 } // namespace nes::cpu::tests

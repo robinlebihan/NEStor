@@ -68,6 +68,15 @@
     <ClCompile Include="Bus\Public\Bus-ExtendedBus.ixx">
       <Filter>Bus\Public</Filter>
     </ClCompile>
+    <ClCompile Include="CPU\Private\CPU-Transfer.ixx">
+      <Filter>CPU\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="CPU\Private\CPU-FlagInstruction.ixx">
+      <Filter>CPU\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="CPU\Private\CPU-Load.ixx">
+      <Filter>CPU\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assembly">
