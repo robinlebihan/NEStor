@@ -110,6 +110,22 @@ namespace nes::assembly
     export using LdyAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::LDY, .opcode = 0xAC, .cycles = 4}, Absolute>;
     export using LdyAbsoluteX = GenericInstruction<{.mnemonic = InstructionMnemonic::LDY, .opcode = 0xBC, .cycles = 4}, AbsoluteX>;
 
+    export using StaZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::STA, .opcode = 0x85, .cycles = 3}, Zeropage>;
+    export using StaZeropageX = GenericInstruction<{.mnemonic = InstructionMnemonic::STA, .opcode = 0x95, .cycles = 4}, ZeropageX>;
+    export using StaAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::STA, .opcode = 0x8D, .cycles = 4}, Absolute>;
+    export using StaAbsoluteX = GenericInstruction<{.mnemonic = InstructionMnemonic::STA, .opcode = 0x9D, .cycles = 5}, AbsoluteX>;
+    export using StaAbsoluteY = GenericInstruction<{.mnemonic = InstructionMnemonic::STA, .opcode = 0x99, .cycles = 5}, AbsoluteY>;
+    export using StaIndirectX = GenericInstruction<{.mnemonic = InstructionMnemonic::STA, .opcode = 0x81, .cycles = 6}, IndirectX>;
+    export using StaIndirectY = GenericInstruction<{.mnemonic = InstructionMnemonic::STA, .opcode = 0x91, .cycles = 6}, IndirectY>;
+
+    export using StxZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::STX, .opcode = 0x86, .cycles = 3}, Zeropage>;
+    export using StxZeropageY = GenericInstruction<{.mnemonic = InstructionMnemonic::STX, .opcode = 0x96, .cycles = 4}, ZeropageY>;
+    export using StxAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::STX, .opcode = 0x8E, .cycles = 4}, Absolute>;
+
+    export using StyZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::STY, .opcode = 0x84, .cycles = 3}, Zeropage>;
+    export using StyZeropageX = GenericInstruction<{.mnemonic = InstructionMnemonic::STY, .opcode = 0x94, .cycles = 4}, ZeropageX>;
+    export using StyAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::STY, .opcode = 0x8C, .cycles = 4}, Absolute>;
+
     export using NopImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::NOP, .opcode = 0xEA, .cycles = 2}, Implied>;
 
     export using PhaImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::PHA, .opcode = 0x48, .cycles = 3}, Implied>;
@@ -262,6 +278,25 @@ namespace nes::assembly
 
         // PLP
         PlpImplied,
+
+        // STA
+        StaZeropage,
+        StaZeropageX,
+        StaAbsolute,
+        StaAbsoluteX,
+        StaAbsoluteY,
+        StaIndirectX,
+        StaIndirectY,
+
+        // STX
+        StxZeropage,
+        StxZeropageY,
+        StxAbsolute,
+
+        // STY
+        StyZeropage,
+        StyZeropageX,
+        StyAbsolute,
 
         // TAX
         TaxImplied,

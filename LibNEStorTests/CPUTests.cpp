@@ -97,7 +97,7 @@ namespace nes::cpu::tests
         EXPECT_EQ(state.accumulator, 0xF8);
         EXPECT_FALSE(state.status.GetFlag(StatusFlag::Zero));
         EXPECT_TRUE(state.status.GetFlag(StatusFlag::Negative));
-        EXPECT_EQ(cycles, assembly::TaxImplied::Metadata.cycles);
+        EXPECT_EQ(cycles, assembly::LdaImmediate::Metadata.cycles);
     }
 
     TEST(CPU, ExecuteTaxImplied)
@@ -128,6 +128,23 @@ namespace nes::cpu::tests
         // THEN
         EXPECT_FALSE(state.status.GetFlag(StatusFlag::Carry));
         EXPECT_EQ(cycles, assembly::ClcImplied::Metadata.cycles);
+    }
+
+    TEST(CPU, ExecuteStaAbsolute)
+    {
+        // GIVEN
+        constexpr Byte AccumulatorValue = 0xF8u;
+
+        StrictMock<BusMock> bus;
+        CPUState            state{.accumulator = AccumulatorValue};
+
+        EXPECT_CALL(bus, WriteByte(Address{0xBEEFu}, AccumulatorValue));
+
+        // WHEN
+        const auto cycles = Execute(assembly::StaAbsolute{0xBEEFu}, state, bus);
+
+        // THEN
+        EXPECT_EQ(cycles, assembly::StaAbsolute::Metadata.cycles);
     }
 
 } // namespace nes::cpu::tests

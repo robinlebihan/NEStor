@@ -6,6 +6,7 @@ import :EffectiveAddress;
 import :Transfer;
 import :FlagInstruction;
 import :Load;
+import :Store;
 
 import NEStor.Common;
 import NEStor.Assembly;
@@ -226,6 +227,14 @@ namespace nes::cpu
             target       = data;
 
             UpdateFlags(m_cpu_state, target);
+            return Instr::Metadata.cycles + PageBoundaryCrossingOverhead(crossed_page_boundary);
+        }
+
+        template <concepts::StoreInstruction Instr>
+        auto operator()(const Instr& instr) -> Byte
+        {
+            const auto source                = m_cpu_state.*(StoreInstructionTrait<Instr>::Source);
+            const auto crossed_page_boundary = WriteByte(instr.GetAddressMode(), source);
             return Instr::Metadata.cycles + PageBoundaryCrossingOverhead(crossed_page_boundary);
         }
 

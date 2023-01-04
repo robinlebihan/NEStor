@@ -77,6 +77,9 @@
     <ClCompile Include="CPU\Private\CPU-Load.ixx">
       <Filter>CPU\Private</Filter>
     </ClCompile>
+    <ClCompile Include="CPU\Private\CPU-Store.ixx">
+      <Filter>CPU\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assembly">

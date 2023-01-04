@@ -23,7 +23,8 @@ namespace nes::cpu
                 const auto instruction = assembly::Decode(opcode, operand);
                 m_state.program_counter += static_cast<Address>(instruction.GetSize());
 
-                m_state.instruction_remaining_cycles = Execute(instruction, m_state, bus);
+                const auto cycles_to_perform         = Execute(instruction, m_state, bus);
+                m_state.instruction_remaining_cycles = cycles_to_perform;
             }
 
             m_state.instruction_remaining_cycles--;
