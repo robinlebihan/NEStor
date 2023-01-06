@@ -82,9 +82,23 @@ namespace nes::assembly
     export using CpyZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::CPY, .opcode = 0xC4, .cycles = 3}, Zeropage>;
     export using CpyAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::CPY, .opcode = 0xCC, .cycles = 4}, Absolute>;
 
+    export using DecZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::DEC, .opcode = 0xC6, .cycles = 5}, Zeropage>;
+    export using DecZeropageX = GenericInstruction<{.mnemonic = InstructionMnemonic::DEC, .opcode = 0xD6, .cycles = 6}, ZeropageX>;
+    export using DecAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::DEC, .opcode = 0xCE, .cycles = 6}, Absolute>;
+    export using DecAbsoluteX = GenericInstruction<{.mnemonic = InstructionMnemonic::DEC, .opcode = 0xDE, .cycles = 7}, AbsoluteX>;
+
     export using DexImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::DEX, .opcode = 0xCA, .cycles = 2}, Implied>;
 
     export using DeyImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::DEY, .opcode = 0x88, .cycles = 2}, Implied>;
+
+    export using IncZeropage = GenericInstruction<{.mnemonic = InstructionMnemonic::INC, .opcode = 0xE6, .cycles = 5}, Zeropage>;
+    export using IncZeropageX = GenericInstruction<{.mnemonic = InstructionMnemonic::INC, .opcode = 0xF6, .cycles = 6}, ZeropageX>;
+    export using IncAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::INC, .opcode = 0xEE, .cycles = 6}, Absolute>;
+    export using IncAbsoluteX = GenericInstruction<{.mnemonic = InstructionMnemonic::INC, .opcode = 0xFE, .cycles = 7}, AbsoluteX>;
+
+    export using InxImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::INX, .opcode = 0xE8, .cycles = 2}, Implied>;
+
+    export using InyImplied = GenericInstruction<{.mnemonic = InstructionMnemonic::INY, .opcode = 0xC8, .cycles = 2}, Implied>;
 
     export using JmpAbsolute = GenericInstruction<{.mnemonic = InstructionMnemonic::JMP, .opcode = 0x4C, .cycles = 3}, Absolute>;
     export using JmpIndirect = GenericInstruction<{.mnemonic = InstructionMnemonic::JMP, .opcode = 0x6C, .cycles = 5}, Indirect>;
@@ -233,8 +247,29 @@ namespace nes::assembly
         CpyZeropage,
         CpyAbsolute,
 
+        // DEC
+        DecAbsolute,
+        DecAbsoluteX,
+        DecZeropage,
+        DecZeropageX,
+
         // DEX
         DexImplied,
+
+        // DEY
+        DeyImplied,
+
+        // INC
+        IncAbsolute,
+        IncAbsoluteX,
+        IncZeropage,
+        IncZeropageX,
+
+        // INX
+        InxImplied,
+
+        // INY
+        InyImplied,
 
         // JMP
         JmpAbsolute,

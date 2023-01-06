@@ -1,5 +1,6 @@
 export module NEStor.CPU:ExecutionVisitor;
 
+import :IncDec;
 import :State;
 import :Branching;
 import :EffectiveAddress;
@@ -37,6 +38,19 @@ namespace nes::cpu
     constexpr auto WrappingAdd(Byte lhs, Byte rhs) -> Byte
     {
         return static_cast<Byte>((static_cast<Word>(lhs) + static_cast<Word>(rhs)) & 0xFF);
+    }
+
+    template <IncAction Action>
+    constexpr void IncrementOrDecrement(Byte& value)
+    {
+        if constexpr (Action == IncAction::Increment)
+        {
+            value = WrappingAdd(value, 1u);
+        }
+        else
+        {
+            value = WrappingSub(value, 1u);
+        }
     }
 
     export template <bus::concepts::Bus Bus>
@@ -190,6 +204,26 @@ namespace nes::cpu
             return Instr::Metadata.cycles;
         }
 
+        template <concepts::IncDecInstruction Instr>
+        auto operator()([[maybe_unused]] const Instr& instr) -> Byte
+        {
+            if constexpr (IncDecInstructionTrait<Instr>::Target != nullptr)
+            {
+                auto& target = m_cpu_state.*(IncDecInstructionTrait<Instr>::Target);
+                IncrementOrDecrement<IncDecInstructionTrait<Instr>::Action>(target);
+                UpdateFlags(m_cpu_state, target);
+            }
+            else
+            {
+                auto [value, _] = FetchByte(instr.GetAddressMode());
+                IncrementOrDecrement<IncDecInstructionTrait<Instr>::Action>(value);
+                UpdateFlags(m_cpu_state, value);
+                WriteByte(instr.GetAddressMode(), value);
+            }
+
+            return Instr::Metadata.cycles;
+        }
+
         template <concepts::BranchingInstruction Instr>
         auto operator()(const Instr& instr) -> Byte
         {
@@ -236,14 +270,6 @@ namespace nes::cpu
             const auto source                = m_cpu_state.*(StoreInstructionTrait<Instr>::Source);
             const auto crossed_page_boundary = WriteByte(instr.GetAddressMode(), source);
             return Instr::Metadata.cycles + PageBoundaryCrossingOverhead(crossed_page_boundary);
-        }
-
-        auto operator()(const assembly::DexImplied& /*instr*/) -> Byte
-        {
-            m_cpu_state.x = WrappingSub(m_cpu_state.x, 1);
-            UpdateFlags(m_cpu_state, m_cpu_state.x);
-
-            return assembly::DexImplied::Metadata.cycles;
         }
 
         auto operator()(const assembly::DeyImplied& /*instr*/) -> Byte

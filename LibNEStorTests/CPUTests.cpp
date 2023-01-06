@@ -147,4 +147,18 @@ namespace nes::cpu::tests
         EXPECT_EQ(cycles, assembly::StaAbsolute::Metadata.cycles);
     }
 
+    TEST(CPU, ExecuteDexImplied)
+    {
+        // GIVEN
+        StrictMock<BusMock> bus;
+        CPUState            state{.x = 0x34};
+
+        // WHEN
+        const auto cycles = Execute(assembly::DexImplied{}, state, bus);
+
+        // THEN
+        EXPECT_EQ(state.x, 0x33);
+        EXPECT_EQ(cycles, assembly::DexImplied::Metadata.cycles);
+    }
+
 } // namespace nes::cpu::tests

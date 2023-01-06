@@ -153,6 +153,7 @@
     <ClCompile Include="CPU\Private\CPU-ExecutionVisitor.ixx" />
     <ClCompile Include="CPU\Private\CPU-FlagInstruction.ixx" />
     <ClCompile Include="CPU\Private\CPU-Impl.ixx" />
+    <ClCompile Include="CPU\Private\CPU-IncDec.ixx" />
     <ClCompile Include="CPU\Private\CPU-Load.ixx" />
     <ClCompile Include="CPU\Private\CPU-Store.ixx" />
     <ClCompile Include="CPU\Private\CPU-Transfer.ixx" />
