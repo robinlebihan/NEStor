@@ -21,7 +21,7 @@ namespace nes::assembly::tests
     {
         // GIVEN
         constexpr Byte opcode  = 0x29;
-        constexpr Word operand = 0x9876;
+        constexpr Word operand = 0x7698;
 
         // WHEN
         constexpr auto decoded = Decode(opcode, operand);

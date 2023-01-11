@@ -51,7 +51,7 @@ namespace nes::assembly
             }
             else if constexpr (std::same_as<OperandType, Byte>)
             {
-                const Byte actual_operand = (operand & 0xFF00u) >> 8u;
+                const Byte actual_operand = operand & 0x00FFu;
                 out = Instr{actual_operand};
             }
             else
