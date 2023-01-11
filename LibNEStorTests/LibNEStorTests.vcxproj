@@ -135,6 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyDecodeTests.cpp" />
+    <ClCompile Include="Mocks.ixx" />
     <ClCompile Include="CPUTests.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>

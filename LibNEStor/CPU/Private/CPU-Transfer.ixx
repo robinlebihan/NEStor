@@ -36,7 +36,6 @@ namespace nes::cpu
         // clang-format off
         export template <typename T>
         concept TransferInstruction = requires() {
-            std::same_as<T::AddressModeType, assembly::Implied>;
             { decay_copy(TransferInstructionTrait<T>::From) } -> std::same_as<Byte CPUState::*>;
             { decay_copy(TransferInstructionTrait<T>::To) } -> std::same_as<Byte CPUState::*>;
         };

@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
+import NEStor.Tests.Mocks;
+
 import NEStor.Common;
 import NEStor.CPU;
 import NEStor.Assembly;
@@ -10,13 +12,7 @@ namespace nes::cpu::tests
 {
     using ::testing::StrictMock;
     using ::testing::Return;
-
-    class BusMock : public bus::ExtendedBus<BusMock>
-    {
-    public:
-        MOCK_METHOD(void, WriteByte, (Address, Byte), ());
-        MOCK_METHOD(Byte, ReadByte, (Address), (const));
-    };
+    using ::nes::mocks::BusMock;
 
     TEST(CPU, ExecuteJmpAbsolute)
     {

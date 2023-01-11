@@ -114,4 +114,17 @@ namespace nes::cpu
                 .crossed_page_boundary = not AreAddressesOnSamePage(address, state.program_counter)};
     }
 
+    namespace concepts
+    {
+        // clang-format off
+
+        export template <typename T, typename Bus>
+        concept MemoryAddressMode = requires(const T address_mode, const Bus bus) {
+            { ComputeEffectiveAddress(address_mode, bus, CPUState{}) } -> std::same_as<EffectiveAddress>;
+        };
+
+        // clang-format on
+
+    } // namespace concepts
+
 } // namespace nes::cpu

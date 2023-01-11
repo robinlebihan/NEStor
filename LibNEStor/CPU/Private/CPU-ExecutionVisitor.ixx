@@ -80,15 +80,7 @@ namespace nes::cpu
 
         template <assembly::concepts::AddressMode AddressMode>
         auto FetchByte(const AddressMode& address_mode) -> FetchedByte
-            requires std::same_as<AddressMode, assembly::Zeropage>
-                or std::same_as<AddressMode, assembly::ZeropageX>
-                or std::same_as<AddressMode, assembly::ZeropageY>
-                or std::same_as<AddressMode, assembly::Absolute>
-                or std::same_as<AddressMode, assembly::AbsoluteX>
-                or std::same_as<AddressMode, assembly::AbsoluteY>
-                or std::same_as<AddressMode, assembly::Indirect>
-                or std::same_as<AddressMode, assembly::IndirectX>
-                or std::same_as<AddressMode, assembly::IndirectY>
+            requires concepts::MemoryAddressMode<AddressMode, Bus>
         {
             const auto [address, page_boundary_crossing] = ComputeEffectiveAddress(address_mode, m_bus, m_cpu_state);
             return {m_bus.ReadByte(address), page_boundary_crossing};
@@ -102,15 +94,7 @@ namespace nes::cpu
 
         template <assembly::concepts::AddressMode AddressMode>
         auto WriteByte(const AddressMode& address_mode, Byte data) -> bool
-            requires std::same_as<AddressMode, assembly::Zeropage>
-                or std::same_as<AddressMode, assembly::ZeropageX>
-                or std::same_as<AddressMode, assembly::ZeropageY>
-                or std::same_as<AddressMode, assembly::Absolute>
-                or std::same_as<AddressMode, assembly::AbsoluteX>
-                or std::same_as<AddressMode, assembly::AbsoluteY>
-                or std::same_as<AddressMode, assembly::Indirect>
-                or std::same_as<AddressMode, assembly::IndirectX>
-                or std::same_as<AddressMode, assembly::IndirectY>
+            requires concepts::MemoryAddressMode<AddressMode, Bus>
         {
             const auto [address, page_boundary_crossing] = ComputeEffectiveAddress(address_mode, m_bus, m_cpu_state);
             m_bus.WriteByte(address, data);
