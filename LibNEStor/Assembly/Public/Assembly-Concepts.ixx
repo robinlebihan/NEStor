@@ -39,11 +39,16 @@ namespace nes::assembly::concepts
     export template <typename T>
     concept InstructionVariant = requires(const T instruction_variant) {
         requires std::regular<T>;
-        { instruction_variant.IsValid() } -> std::same_as<bool>;
-        std::visit([](const auto&) {}, instruction_variant);
 
+        { instruction_variant.IsValid() } -> std::same_as<bool>;
+        { instruction_variant.GetSize() } -> std::same_as<std::size_t>;
+
+        std::visit([](const auto&) {}, instruction_variant);
         typename T::UnknownInstruction;
     };
+
+    export template <typename T, InstructionMnemonic Mnem>
+    concept InstructionWithMnemonic = Instruction<T> and Mnem == T::Metadata.mnemonic;
     // clang-format on
 
 } // namespace nes::assembly::concepts

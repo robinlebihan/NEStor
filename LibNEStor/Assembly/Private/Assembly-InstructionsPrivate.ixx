@@ -52,6 +52,22 @@ namespace nes::assembly
         using Base::Base;
         using Base::operator=;
 
+        [[nodiscard]] constexpr auto GetSize() const noexcept
+        {
+            const auto get_operand_size = []<typename Instr>([[maybe_unused]] const Instr & instr) -> std::size_t {
+                if constexpr (std::same_as<UnknownInstruction, Instr>)
+                {
+                    return 0u;
+                }
+                else
+                {
+                    return Instr::AddressModeType::Size;
+                }
+            };
+
+            return sizeof(Byte) + std::visit(get_operand_size, *this);
+        }
+
         [[nodiscard]] constexpr auto IsValid() const noexcept
         {
             return not std::holds_alternative<UnknownInstruction>(*this);

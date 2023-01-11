@@ -44,6 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -51,6 +52,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -103,7 +105,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -116,7 +118,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -141,7 +143,25 @@
     <ClCompile Include="Assembly\Public\Assembly-Instructions.ixx" />
     <ClCompile Include="Assembly\Public\Assembly-Mnemonics.ixx" />
     <ClCompile Include="Assembly\Public\Assembly.ixx" />
+    <ClCompile Include="Bus\Private\Bus-MainBusImpl.ixx" />
+    <ClCompile Include="Bus\Public\Bus-ExtendedBus.ixx" />
+    <ClCompile Include="Bus\Public\Bus.ixx" />
+    <ClCompile Include="Bus\Public\Bus-MainBus.ixx" />
     <ClCompile Include="Common.ixx" />
+    <ClCompile Include="CPU\Private\CPU-Branching.ixx" />
+    <ClCompile Include="CPU\Private\CPU-EffectiveAddress.ixx" />
+    <ClCompile Include="CPU\Private\CPU-ExecutionVisitor.ixx" />
+    <ClCompile Include="CPU\Private\CPU-FlagInstruction.ixx" />
+    <ClCompile Include="CPU\Private\CPU-Impl.ixx" />
+    <ClCompile Include="CPU\Private\CPU-IncDec.ixx" />
+    <ClCompile Include="CPU\Private\CPU-Load.ixx" />
+    <ClCompile Include="CPU\Private\CPU-Store.ixx" />
+    <ClCompile Include="CPU\Private\CPU-Transfer.ixx" />
+    <ClCompile Include="CPU\Public\CPU-Execution.ixx" />
+    <ClCompile Include="CPU\Public\CPU-State.ixx" />
+    <ClCompile Include="CPU\Public\CPU-StatusFlags.ixx" />
+    <ClCompile Include="CPU\Public\CPU.ixx" />
+    <ClCompile Include="RAM\Public\RAM.ixx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

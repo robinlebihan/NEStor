@@ -20,8 +20,8 @@ namespace nes::assembly
             std::array<Byte, sizeof...(T)> opcodes{T::Metadata.opcode...};
             std::ranges::sort(opcodes);
 
-            const auto ret = std::ranges::unique(opcodes);
-            return std::ranges::size(ret) == 0u;
+            const auto duplicates = std::ranges::unique(opcodes);
+            return std::ranges::size(duplicates) == 0u;
         }
 
     } // namespace
@@ -51,7 +51,7 @@ namespace nes::assembly
             }
             else if constexpr (std::same_as<OperandType, Byte>)
             {
-                const Byte actual_operand = (operand & 0xFF00u) >> 8u;
+                const Byte actual_operand = operand & 0x00FFu;
                 out = Instr{actual_operand};
             }
             else
